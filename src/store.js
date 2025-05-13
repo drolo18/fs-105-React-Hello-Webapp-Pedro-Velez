@@ -6,7 +6,7 @@ export const initialStore=()=>{
 
 export default function storeReducer(store, action = {}) {
   switch(action.type){
-    case 'add':
+    case 'setContacts':
 
       const data = action.payload
 
@@ -14,6 +14,13 @@ export default function storeReducer(store, action = {}) {
         ...store,
         contacts: data
       };
+    case 'addContacts':
+
+    return {
+      ...store, 
+      contacts: [...store.contacts, action.payload]
+    }
+
     default:
       throw Error('Unknown action.');
   }    

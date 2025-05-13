@@ -12,7 +12,7 @@ export const Home = () => {
 			const response = await fetch('https://playground.4geeks.com/contact/agendas/Pedro')
 			const data = await response.json()
 			dispatch({ 
-				type: 'add',
+				type: 'setContacts',
 				payload: data.contacts
 			})
 			
