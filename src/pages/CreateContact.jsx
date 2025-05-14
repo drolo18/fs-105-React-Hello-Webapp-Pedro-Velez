@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-
+import { useNavigate } from "react-router-dom";
 
 export const CreateContact = () => {
+    const navigate = useNavigate()
 
     const { store, dispatch } = useGlobalReducer()
     const [name, setName] = useState('')
@@ -25,12 +26,12 @@ export const CreateContact = () => {
             }
             )
 
-            if(response.ok){
-                const data = await response.json()
-                dispatch ({
-                    type: 'addContacts',
-                    payload: data
-                })
+            if (response.ok) {
+                setTimeout(() => {  
+                    <div class="alert alert-success" role="alert">
+                        Usuario Creado Con Éxito
+                    </div>
+                }, 500)
             }
 
         } catch (error) {
@@ -40,15 +41,34 @@ export const CreateContact = () => {
 
 
     }
+    const addContatsNavigate = async () => {
+        await addContacts()
+        navigate("/")
+
+
+    }
 
 
     return (
-        <div>
-            <input type="text" placeholder="Nombre" onChange={e => setName(e.target.value)} value={name} />
-            <input type="text" placeholder="Teléfono" onChange={e => setPhone(e.target.value)} value={phone}/>
-            <input type="text" placeholder="Email" onChange={e => setEmail(e.target.value)} value={email}/>
-            <input type="text" placeholder="Dirección" onChange={e => setAddress(e.target.value)} value={address}/>
-            <button onClick={addContacts}>Agregar contacto</button>
-        </div>
+        <form className="container-fluid">
+            <h1 className="text-center m-5">Add New Contact</h1>
+            <div className="d-flex justify-content-center row">
+                <div className="d-flex justify-content-center">
+                    <input className="col-5 rounded m-3 text-center" type="text" placeholder="Nombre" onChange={e => setName(e.target.value)} value={name} />
+                </div>
+                <div className="d-flex justify-content-center">
+                    <input className="col-5 rounded m-3 text-center" type="text" placeholder="Teléfono" onChange={e => setPhone(e.target.value)} value={phone} />
+                </div>
+                <div className="d-flex justify-content-center">
+                    <input className="col-5 rounded m-3 text-center" type="text" placeholder="Email" onChange={e => setEmail(e.target.value)} value={email} />
+                </div>
+                <div className="d-flex justify-content-center">
+                    <input className="col-5 rounded m-3 text-center" type="text" placeholder="Dirección" onChange={e => setAddress(e.target.value)} value={address} />
+                </div>
+                <div className="d-flex justify-content-center">
+                    <button onClick={addContatsNavigate}>Agregar contacto</button>
+                </div>
+            </div>
+        </form>
     )
 }
