@@ -10,6 +10,7 @@ export const CreateContact = () => {
     const [phone, setPhone] = useState('')
     const [email, setEmail] = useState('')
     const [address, setAddress] = useState('')
+    const [showAlert, setShowAlert] = useState(false)
 
     const addContacts = async () => {
         try {
@@ -27,11 +28,7 @@ export const CreateContact = () => {
             )
 
             if (response.ok) {
-                setTimeout(() => {  
-                    <div class="alert alert-success" role="alert">
-                        Usuario Creado Con Éxito
-                    </div>
-                }, 500)
+                setShowAlert(true)
             }
 
         } catch (error) {
@@ -41,9 +38,12 @@ export const CreateContact = () => {
 
 
     }
-    const addContatsNavigate = async () => {
+    const addContatsNavigate = async (e) => {
+        e.preventDefault()
         await addContacts()
-        navigate("/")
+        setTimeout(() => {
+            navigate("/")
+        }, 1000)
 
 
     }
@@ -52,18 +52,23 @@ export const CreateContact = () => {
     return (
         <form className="container-fluid">
             <h1 className="text-center m-5">Add New Contact</h1>
+            {showAlert && (
+                <div className="alert alert-success" role="alert">
+                    Usuario Creado Con Éxito
+                </div>
+            )}
             <div className="d-flex justify-content-center row">
                 <div className="d-flex justify-content-center">
-                    <input className="col-5 rounded m-3 text-center" type="text" placeholder="Nombre" onChange={e => setName(e.target.value)} value={name} />
+                    <input className="col-5 rounded m-3 text-center" type="text" placeholder="NOMBRE" onChange={e => setName(e.target.value)} value={name} />
                 </div>
                 <div className="d-flex justify-content-center">
-                    <input className="col-5 rounded m-3 text-center" type="text" placeholder="Teléfono" onChange={e => setPhone(e.target.value)} value={phone} />
+                    <input className="col-5 rounded m-3 text-center" type="tel" placeholder="TELEFONO" onChange={e => setPhone(e.target.value)} value={phone} />
                 </div>
                 <div className="d-flex justify-content-center">
-                    <input className="col-5 rounded m-3 text-center" type="text" placeholder="Email" onChange={e => setEmail(e.target.value)} value={email} />
+                    <input className="col-5 rounded m-3 text-center" type="email" placeholder="EMAIL" onChange={e => setEmail(e.target.value)} value={email} />
                 </div>
                 <div className="d-flex justify-content-center">
-                    <input className="col-5 rounded m-3 text-center" type="text" placeholder="Dirección" onChange={e => setAddress(e.target.value)} value={address} />
+                    <input className="col-5 rounded m-3 text-center" type="text" placeholder="DIRECCION" onChange={e => setAddress(e.target.value)} value={address} />
                 </div>
                 <div className="d-flex justify-content-center">
                     <button onClick={addContatsNavigate}>Agregar contacto</button>
