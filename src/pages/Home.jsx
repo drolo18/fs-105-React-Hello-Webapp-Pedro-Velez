@@ -56,6 +56,13 @@ export const Home = () => {
 		}
 
 	}
+	const modifyContact = async () =>{
+		try {
+			
+		} catch (error) {
+			console.log(error)
+		}
+	}
 
 
 
@@ -74,9 +81,9 @@ export const Home = () => {
 							<p><i className="fa-solid fa-envelope-open-text"></i> {contacts.email}</p>
 							<p><i className="fa-solid fa-location-dot"></i>  {contacts.address}</p>
 						</div>
-						<div className="row m-3">
-							<button onClick={() => deleteContact(contacts.id)} className="btn btn-outline-light" ><i className="fa-solid fa-trash"></i></button>
-							<button className="btn btn-outline-light"><i className="fa-solid fa-pencil"></i></button>
+						<div className="row sm-12">
+							<button onClick={() => deleteContact(contacts.id)} className="btn btn-outline-dark m-1" ><i className="fa-solid fa-trash"></i></button>
+							<button onClick={()=>modifyContact(contacts.id)} className="btn btn-outline-dark m-1"><i className="fa-solid fa-pencil"></i></button>
 						</div>
 
 					</div>

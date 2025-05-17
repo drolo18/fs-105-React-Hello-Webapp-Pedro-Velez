@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
-import { useNavigate } from "react-router-dom";
+
+import { Spinner } from "../components/spinner";
 
 export const CreateContact = () => {
-    const navigate = useNavigate()
+  
 
     const { store, dispatch } = useGlobalReducer()
     const [name, setName] = useState('')
@@ -28,7 +29,7 @@ export const CreateContact = () => {
             )
 
             if (response.ok) {
-                setShowAlert(true)
+               
             }
 
         } catch (error) {
@@ -40,12 +41,9 @@ export const CreateContact = () => {
     }
     const addContatsNavigate = async (e) => {
         e.preventDefault()
+        setShowAlert(true)
         await addContacts()
-        setTimeout(() => {
-            navigate("/")
-        }, 1000)
-
-
+     
     }
 
 
@@ -71,7 +69,7 @@ export const CreateContact = () => {
                     <input className="col-5 rounded m-3 text-center" type="text" placeholder="DIRECCION" onChange={e => setAddress(e.target.value)} value={address} />
                 </div>
                 <div className="d-flex justify-content-center">
-                    <button onClick={addContatsNavigate}>Agregar contacto</button>
+                    {showAlert ? <Spinner/> :  <button onClick={addContatsNavigate}>Agregar contacto</button>}                    
                 </div>
             </div>
         </form>

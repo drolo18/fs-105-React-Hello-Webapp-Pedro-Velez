@@ -10,7 +10,7 @@ export const Navbar = () => {
 					<button className="btn btn-outline-primary">Lista de Contactos</button>
 				</Link>
 			</div>
-			<input type="text" placeholder="&#xf002;"/>
+			<input type="text" className="center" placeholder="&#xf002;"/>
 			<div className="d-grid gap-2 col-4 mx-auto">
 				<Link to="/CreateContact">
 					<button className="btn btn-outline-success">Create contact</button>
