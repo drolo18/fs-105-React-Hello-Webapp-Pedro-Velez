@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
 import { Spinner } from "../components/spinner";
 
-export const CreateContact = () => {
-  
-
+export const CreateContact = ({type}) => {
+ 
+    
+    const isEdit = type === 'editContact'
     const { store, dispatch } = useGlobalReducer()
     const [name, setName] = useState('')
     const [phone, setPhone] = useState('')
@@ -13,7 +14,20 @@ export const CreateContact = () => {
     const [address, setAddress] = useState('')
     const [showAlert, setShowAlert] = useState(false)
 
+    useEffect (()=>{
+        console.log(store)
+        if (isEdit){
+            setName(store.contact.name)
+            setPhone(store.contact.phone)
+            setEmail(store.contact.email)
+            setAddress(store.contact.address)
+        }
+
+    },[])
+    
+
     const addContacts = async () => {
+        
         try {
             const response = await fetch('https://playground.4geeks.com/contact/agendas/Pedro/contacts', {
                 method: 'POST',
@@ -45,6 +59,31 @@ export const CreateContact = () => {
         await addContacts()
      
     }
+    const EditContactList = async()=>{
+        try {
+            const response = await fetch(`https://playground.4geeks.com/contact/agendas/Pedro/contacts/${store.contact.id}`,{
+               method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    "name": name,
+                    "phone": phone,
+                    "email": email,
+                    "address": address,
+            })
+            }
+            
+            )
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
+    const editContactSingle = async(e) => {
+          e.preventDefault()
+            setShowAlert(true)
+            await EditContactList()
+
+    }
 
 
     return (
@@ -68,9 +107,16 @@ export const CreateContact = () => {
                 <div className="d-flex justify-content-center">
                     <input className="col-5 rounded m-3 text-center" type="text" placeholder="DIRECCION" onChange={e => setAddress(e.target.value)} value={address} />
                 </div>
-                <div className="d-flex justify-content-center">
+                {isEdit ? ( <div className="d-flex justify-content-center">
+                    {showAlert ? <Spinner/> :  <button onClick={editContactSingle}>Editar Contacto</button>}                    
+                </div>
+
+                ):(
+                     <div className="d-flex justify-content-center">
                     {showAlert ? <Spinner/> :  <button onClick={addContatsNavigate}>Agregar contacto</button>}                    
                 </div>
+                )}
+              
             </div>
         </form>
     )

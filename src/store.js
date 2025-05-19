@@ -18,9 +18,11 @@ export default function storeReducer(store, action = {}) {
 
     case 'editContact':
 
+    const contact = action.payload
+
       return {
         ...store,
-        contact: data
+        contact: contact
       };
 
 

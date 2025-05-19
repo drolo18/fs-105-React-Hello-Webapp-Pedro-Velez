@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer"
+import { useNavigate } from "react-router-dom";
 
 
 export const Home = () => {
 
+	const navigate = useNavigate()
 	const [phoneBooks, setPhoneBooks] = useState([])
 	const { store, dispatch } = useGlobalReducer()
 
@@ -56,41 +58,49 @@ export const Home = () => {
 		}
 
 	}
-	const modifyContact = async () =>{
-		try {
-			
-		} catch (error) {
-			console.log(error)
-		}
+
+	const editContact = (contact) => {
+
+		dispatch({type:'editContact', payload: contact})
+		navigate('/edit-contact')
 	}
 
 
 
 	return (
-		<div className="text-center mt-5">
-			{store.contacts
-				.sort((a, b) => a.name.localeCompare(b.name))
-				.map((contacts) => (
-					<div className="d-flex justify-content-between  m-5" key={contacts.id}>
-						<div className="col-4">
-							<img className="rounded-circle" src="data:image/jpeg;base64,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" alt="" />
-						</div>
-						<div className="col-6 text-start">
-							<h1>{contacts.name}</h1>
-							<p><i className="fa-solid fa-phone-flip"></i> {contacts.phone}</p>
-							<p><i className="fa-solid fa-envelope-open-text"></i> {contacts.email}</p>
-							<p><i className="fa-solid fa-location-dot"></i>  {contacts.address}</p>
-						</div>
-						<div className="row sm-12">
-							<button onClick={() => deleteContact(contacts.id)} className="btn btn-outline-dark m-1" ><i className="fa-solid fa-trash"></i></button>
-							<button onClick={()=>modifyContact(contacts.id)} className="btn btn-outline-dark m-1"><i className="fa-solid fa-pencil"></i></button>
-						</div>
-
-					</div>
-
-				))
-			}
-
-		</div>
+    <div className="container mt-5">
+        <div className="row">
+            {store.contacts
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .map((contact) => (
+                    <div className="col-12 col-md-6 col-lg-4 mb-4" key={contact.id}>
+                        <div className="card h-100">
+                            <div className="card-body d-flex flex-column align-items-center">
+                                <img
+                                    className="rounded-circle mb-3"
+                                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAbFBMVEX///8AAACbm5v29vbm5uZhYWF1dXW/v7+srKyYmJiwsLBJSUnw8PDr6+szMzN6enqIiIjOzs61tbUpKSkWFhahoaHe3t4gICDX19fGxsanp6eBgYFEREQkJCRvb284ODgNDQ1OTk5nZ2ePj49YOSmzAAADs0lEQVR4nO3ciXqiMBQFYMOOIgpqVWjr0vd/x8p0HJnKFnLxhnD+J8j5WLLdZDYDAAAAAAAAAAAAAAAAAAAAMJGT+MHOsgI/cbibQm+ZrmJRFq/SJXej6DjhRlTZhGY8S/+9Mt6Pd5+7ecrm24Z8hfOcu4lKjm35CtsjdzN7s90O+Qquzd3UfvyO+Qqj/BxXEgGFWHE3V95CKqAQC+4GS7I/JAMKsR/VxxhJ5ytE3M3uzu7SSTzbjucpxu1pKsXcDe+qazf4zOVueje73gGF2HE3vos3hYBCvHE3vwP5fqLsg7v57b6UAgoRcgdo068nLNO9V/xUTvjJHaGZoxxQCL2XNjyChB53iCY2QUAhdB68qXT2Dxl3jAZ7koQa94lqw5kHfQc2NC+pzqPTC1HCC3eQWkQBheAOUudAlvDAHaXGnCyhriv9a7KEa+4oNfqvXvym62pG3wWoZyfuKDXIAmr7M0VCJERCfuYnPJEF1LW3ML/HN3/UZv7I2/zZk/kzYOn6izr61mVYRAkt7iC1KHYtChrvXKjtjt5tuGM0oFkw1Xe5dAo7M+bvrk1gh9T8Xe4JVCrMQsWA2lebqO6S7rmb34H5VV/mV+5NoPpyAhW0E6iCntnnHgHPIwp4iyjfZ4zrNMLM/BMlN7lUwJy7uX0Yf7JrAqfzbo5dfjj78Z6wLKRt/cbIT8kW/Ka/6mKkH+AvTlg9jIsNOa3+h+E3DtwtEz/IsizwEwPDAQAAAAAAAIARbCfxs13uee7N1fPyXeYnznjXgUuiZL52q++FLGzcdTDeRZtDkDfdCVn2ngfa1j1Xc9JcfqM7ztNxLJ86wVU63MM10zul7ZPUJvqa/oKcjKqQXYjFTrtH6Vh0R2R/xJZGIe2A7kxX2SnT43VNVP4sba4Jd7xZRnNhS7096201Ed1ptSZrrqLaJUXX0I3HMbKL5G7RVc748ueoerWevK+X5pMpBqLzuqqG6MISUIjLi15VusOw8oJXBKQ7sd3H8HXSTp/aWFIDD1eP3PluBi2D4/wEHwashAu4s/012P8m5U72TzpMwIQ7V8kgkyqaE7BUhpgb063CUBigtF+Xv8wd+d9Gr3e0QP2evn621IZ6NsWdpwJtQH26wgfa6SLvhKIa7TSDO00lyoBUlzzTojwVzbMu04byQ8y4w1SiXA2nuh6JFuVlS0jIAwmREAn5ISESIiE/JERCJOSHhEg4rYSqlyEOg/KKxSS09BPyV2YCAAAAAAAAAAAAAAAAAAAA/O8bqydBUFBka28AAAAASUVORK5CYII="
+                                    alt=""
+                                    width={100}
+                                    height={100}
+                                />
+                                <h5 className="card-title" >{contact.name}</h5>
+                                <p className="card-text"><i className="fa-solid fa-phone-flip"></i> {contact.phone}</p>
+                                <p className="card-text"><i className="fa-solid fa-envelope-open-text"></i> {contact.email}</p>
+                                <p className="card-text"><i className="fa-solid fa-location-dot"></i> {contact.address}</p>
+                                <div className="mt-auto d-flex gap-2">
+                                    <button onClick={() => deleteContact(contact.id)} className="btn btn-outline-dark">
+                                        <i className="fa-solid fa-trash"></i>
+                                    </button>
+                                    <button onClick={() => editContact(contact)} className="btn btn-outline-dark">
+                                        <i className="fa-solid fa-pencil"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
 	);
 }; 

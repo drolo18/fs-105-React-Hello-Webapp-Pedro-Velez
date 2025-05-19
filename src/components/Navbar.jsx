@@ -1,21 +1,34 @@
 import { Link } from "react-router-dom";
 
+
 export const Navbar = () => {
 
-	return (
-		<nav className="navbar navbar-light bg-light text-center">
-			<div className="d-grid gap-2 col-4 mx-auto">
 
-				<Link to="/">
-					<button className="btn btn-outline-primary">Lista de Contactos</button>
-				</Link>
-			</div>
-			<input type="text" className="center" placeholder="&#xf002;"/>
-			<div className="d-grid gap-2 col-4 mx-auto">
-				<Link to="/CreateContact">
-					<button className="btn btn-outline-success">Create contact</button>
-				</Link>
-			</div>
-		</nav>
+ 
+
+	return (
+		 <nav className="navbar navbar-light bg-light">
+            <div className="container">
+                <div className="row w-100 align-items-center">
+                    <div className="col-12 col-md-4 mb-2 mb-md-0 text-center text-md-start">
+                        <Link to="/">
+                            <button className="btn btn-outline-primary w-100 w-md-auto">Lista de Contactos</button>
+                        </Link>
+                    </div>
+                    <div className="col-12 col-md-4 mb-2 mb-md-0 text-center">
+                        <input     
+                            type="text"
+                            className="form-control"
+                            placeholder="&#xf002;"
+                        />
+                    </div>
+                    <div className="col-12 col-md-4 text-center text-md-end">
+                        <Link to="/CreateContact">
+                            <button className="btn btn-outline-success w-100 w-md-auto">Create contact</button>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </nav>
 	);
 };
