@@ -108,12 +108,12 @@ export const CreateContact = ({type}) => {
                     <input className="col-5 rounded m-3 text-center" type="text" placeholder="DIRECCION" onChange={e => setAddress(e.target.value)} value={address} />
                 </div>
                 {isEdit ? ( <div className="d-flex justify-content-center">
-                    {showAlert ? <Spinner/> :  <button onClick={editContactSingle}>Editar Contacto</button>}                    
+                    {showAlert ? <Spinner/> :  <button className="btn btn-outline-success" onClick={editContactSingle}>Editar Contacto</button>}                    
                 </div>
 
                 ):(
                      <div className="d-flex justify-content-center">
-                    {showAlert ? <Spinner/> :  <button onClick={addContatsNavigate}>Agregar contacto</button>}                    
+                    {showAlert ? <Spinner/> :  <button className="btn btn-outline-success" onClick={addContatsNavigate}>Agregar contacto</button>}                    
                 </div>
                 )}
               
