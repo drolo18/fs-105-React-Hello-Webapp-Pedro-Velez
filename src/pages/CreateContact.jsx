@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 
 import { Spinner } from "../components/spinner";
+import { UserCreated } from "../components/UserCreated";
 
 export const CreateContact = ({type}) => {
  
@@ -13,6 +14,7 @@ export const CreateContact = ({type}) => {
     const [email, setEmail] = useState('')
     const [address, setAddress] = useState('')
     const [showAlert, setShowAlert] = useState(false)
+    const [userCreated, setUserCreated] = useState(false)
 
     useEffect (()=>{
         console.log(store)
@@ -57,6 +59,8 @@ export const CreateContact = ({type}) => {
         e.preventDefault()
         setShowAlert(true)
         await addContacts()
+        setUserCreated(true)
+        setShowAlert(false)
      
     }
     const EditContactList = async()=>{
@@ -82,6 +86,8 @@ export const CreateContact = ({type}) => {
           e.preventDefault()
             setShowAlert(true)
             await EditContactList()
+            setUserCreated(true)
+            setShowAlert(false)
 
     }
 
@@ -89,7 +95,7 @@ export const CreateContact = ({type}) => {
     return (
         <form className="container-fluid">
             <h1 className="text-center m-5">Add New Contact</h1>
-            {showAlert && (
+            {userCreated && (
                 <div className="alert alert-success" role="alert">
                     Usuario Creado Con Éxito
                 </div>
@@ -112,10 +118,12 @@ export const CreateContact = ({type}) => {
                 </div>
 
                 ):(
-                     <div className="d-flex justify-content-center">
+                     <div className="d-flex justify-content-center g-2 mb-2">
                     {showAlert ? <Spinner/> :  <button className="btn btn-outline-success" onClick={addContatsNavigate}>Agregar contacto</button>}                    
                 </div>
                 )}
+                {userCreated?<UserCreated/>:null}
+
               
             </div>
         </form>
