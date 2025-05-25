@@ -24,12 +24,9 @@ export const CreateContact = ({type}) => {
             setEmail(store.contact.email)
             setAddress(store.contact.address)
         }
-
     },[])
     
-
     const addContacts = async () => {
-        
         try {
             const response = await fetch('https://playground.4geeks.com/contact/agendas/Pedro/contacts', {
                 method: 'POST',
@@ -39,30 +36,24 @@ export const CreateContact = ({type}) => {
                     "phone": phone,
                     "email": email,
                     "address": address,
-
                 })
             }
             )
-
-            if (response.ok) {
-               
+            if (response.ok) {      
             }
-
         } catch (error) {
             console.log(error);
-
         }
-
-
     }
+
     const addContatsNavigate = async (e) => {
         e.preventDefault()
         setShowAlert(true)
         await addContacts()
         setUserCreated(true)
-        setShowAlert(false)
-     
+        setShowAlert(false)   
     }
+
     const EditContactList = async()=>{
         try {
             const response = await fetch(`https://playground.4geeks.com/contact/agendas/Pedro/contacts/${store.contact.id}`,{
@@ -74,21 +65,19 @@ export const CreateContact = ({type}) => {
                     "email": email,
                     "address": address,
             })
-            }
-            
-            )
-            
+            }           
+            )         
         } catch (error) {
             console.log(error)
         }
     }
+
     const editContactSingle = async(e) => {
           e.preventDefault()
             setShowAlert(true)
             await EditContactList()
             setUserCreated(true)
             setShowAlert(false)
-
     }
 
 
@@ -96,8 +85,8 @@ export const CreateContact = ({type}) => {
         <form className="container-fluid">
             <h1 className="text-center m-5">Add New Contact</h1>
             {userCreated && (
-                <div className="alert alert-success" role="alert">
-                    Usuario Creado Con Éxito
+                <div className="alert alert-success text-center" role="alert">
+                    Acción exitosa!
                 </div>
             )}
             <div className="d-flex justify-content-center row">
@@ -113,7 +102,7 @@ export const CreateContact = ({type}) => {
                 <div className="d-flex justify-content-center">
                     <input className="col-5 rounded m-3 text-center" type="text" placeholder="DIRECCION" onChange={e => setAddress(e.target.value)} value={address} />
                 </div>
-                {isEdit ? ( <div className="d-flex justify-content-center">
+                {isEdit ? ( <div className="d-flex justify-content-center g-2 mb-2">
                     {showAlert ? <Spinner/> :  <button className="btn btn-outline-success" onClick={editContactSingle}>Editar Contacto</button>}                    
                 </div>
 
@@ -123,8 +112,6 @@ export const CreateContact = ({type}) => {
                 </div>
                 )}
                 {userCreated?<UserCreated/>:null}
-
-              
             </div>
         </form>
     )

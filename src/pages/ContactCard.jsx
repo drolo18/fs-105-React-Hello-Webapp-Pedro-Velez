@@ -1,3 +1,4 @@
+import { UserCreated } from "../components/UserCreated";
 import useGlobalReducer from "../hooks/useGlobalReducer";
 import { Link, useParams } from "react-router-dom";
 
@@ -24,7 +25,7 @@ export const ContactCard = ({contact}) => {
                 <p className="card-text"><i className="fa-solid fa-phone-flip"></i> {selectedContact.phone}</p>
                 <p className="card-text"><i className="fa-solid fa-envelope-open-text"></i> {selectedContact.email}</p>
                 <p className="card-text"><i className="fa-solid fa-location-dot"></i> {selectedContact.address}</p>
-                <Link to="/">Go To Home</Link>
+                <UserCreated/>
             </div>
         </div>
             

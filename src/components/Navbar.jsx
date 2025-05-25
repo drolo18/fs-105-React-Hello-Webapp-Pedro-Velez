@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 
 export const Navbar = () => {
 
-
- 
-
 	return (
 		 <nav className="navbar navbar-light bg-light">
             <div className="container">
@@ -14,8 +11,7 @@ export const Navbar = () => {
                         <Link to="/">
                             <button className="btn btn-outline-primary w-100 w-md-auto">Lista de Contactos</button>
                         </Link>
-                    </div>
-                   
+                    </div>        
                     <div className="col-12 col-md-4 text-center text-md-end">
                         <Link to="/CreateContact">
                             <button className="btn btn-outline-success w-100 w-md-auto">Create contact</button>
